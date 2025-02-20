@@ -11,6 +11,7 @@ import (
 
 	rdf "github.com/deiu/gon3"
 	jsonld "github.com/linkeddata/gojsonld"
+	"github.com/spdx/gordf/rdfloader"
 )
 
 // Graph structure
@@ -209,6 +210,15 @@ func (g *Graph) Parse(reader io.Reader, mime string) error {
 		}
 		for s := range parser.IterTriples() {
 			g.AddTriple(rdf2term(s.Subject), rdf2term(s.Predicate), rdf2term(s.Object))
+		}
+	} else if parserName == "rdfxml" {
+
+		rdfParser, err := rdfloader.LoadFromReaderObject(reader)
+		if err != nil {
+			return err
+		}
+		for _, triple := range rdfParser.Triples {
+			g.AddTriple(xml2term(triple.Subject), xml2term(triple.Predicate), xml2term(triple.Object))
 		}
 	} else {
 		return errors.New(parserName + " is not supported by the parser")

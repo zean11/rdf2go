@@ -5,6 +5,7 @@ go 1.23
 require (
 	github.com/deiu/gon3 v0.0.0-20241212124032-93153c038193
 	github.com/linkeddata/gojsonld v0.0.0-20170418210642-4f5db6791326
+	github.com/spdx/gordf v0.0.0-20250128162952-000978ccd6fb
 	github.com/stretchr/testify v1.8.2
 )
 

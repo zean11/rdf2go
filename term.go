@@ -26,6 +26,7 @@ import (
 
 	rdf "github.com/deiu/gon3"
 	jsonld "github.com/linkeddata/gojsonld"
+	"github.com/spdx/gordf/rdfloader/parser"
 )
 
 // A Term is the value of a subject, predicate or object i.e. a IRI reference, blank node or
@@ -215,6 +216,18 @@ func rdf2term(term rdf.Term) Term {
 		return NewLiteral(term.RawValue())
 	case *rdf.IRI:
 		return NewResource(term.RawValue())
+	}
+	return nil
+}
+
+func xml2term(term *parser.Node) Term {
+	switch term.NodeType {
+	case parser.BLANK:
+		return NewBlankNode(term.String())
+	case parser.LITERAL:
+		return NewLiteral(term.String())
+	case parser.IRI:
+		return NewResource(term.String())
 	}
 	return nil
 }

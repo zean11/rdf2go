@@ -7,6 +7,7 @@ import (
 var mimeParser = map[string]string{
 	"text/turtle":               "turtle",
 	"application/ld+json":       "jsonld",
+	"application/rdf+xml":       "rdfxml",
 	"application/sparql-update": "internal",
 }
 
